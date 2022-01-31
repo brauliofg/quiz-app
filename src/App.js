@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.css';
-import Data from './Data';
 import Question from './Question';
 
 export default function App() {
@@ -8,7 +7,9 @@ export default function App() {
   const [selected, setSelected] = React.useState([]);
   const [submitText, setSubmitText] = React.useState('');
   const [result, setResult] = React.useState('');
-  const [data, setData] = React.useState(initializeData);
+  const [data, setData] = React.useState();
+  const [dataJSON, setdataJSON] = React.useState();
+  const [questionElements, setQuestionElements] = React.useState();
 
   function initializeData() {
     const questionData = [];
@@ -16,23 +17,27 @@ export default function App() {
     const tempSelectArray = [];
     let i = 0;
 
-    Data.results.forEach((questionInfo) => {
+    dataJSON.results.forEach((questionInfo) => {
       questionData.push({
         id: i++,
         type: questionInfo.type,
-        question: questionInfo.question,
+        question: questionInfo.question
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, "'"),
         answers: [],
       });
       questionInfo.incorrect_answers.forEach((ans) =>
         questionData[questionData.length - 1].answers.push({
-          answer: ans,
+          answer: ans.replace(/&quot;/g, '"').replace(/&#039;/g, "'"),
           isSelected: false,
           isAnswer: false,
           showResults: false,
         })
       );
       questionData[questionData.length - 1].answers.push({
-        answer: questionInfo.correct_answer,
+        answer: questionInfo.correct_answer
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, "'"),
         isSelected: false,
         isAnswer: true,
         showResults: false,
@@ -64,11 +69,32 @@ export default function App() {
     return questionData;
   }
 
-  const questionElements = data.map((q) => {
-    return (
-      <Question key={q.id} {...q} select={select} className="questionBlock" />
+  React.useEffect(() => {
+    fetch('https://opentdb.com/api.php?amount=5&category=18')
+      .then((res) => res.json())
+      .then((data2) => setdataJSON(data2));
+  }, []);
+
+  React.useEffect(() => {
+    if (dataJSON === undefined) return;
+    setData(initializeData);
+  }, [dataJSON]);
+
+  React.useEffect(() => {
+    if (data === undefined) return;
+    setQuestionElements(
+      data.map((q) => {
+        return (
+          <Question
+            key={q.id}
+            {...q}
+            select={select}
+            className="questionBlock"
+          />
+        );
+      })
     );
-  });
+  }, [data]);
 
   function select(questionId, answerString) {
     selected[questionId] = answerString;
@@ -93,8 +119,7 @@ export default function App() {
   function handleSubmit(event) {
     event.preventDefault();
     if (submitText === 'Play Again') {
-      setData(initializeData);
-      return;
+      window.location.reload();
     }
     let count = 0;
     let correct = 0;
