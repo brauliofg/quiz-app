@@ -2,6 +2,14 @@ h1,
 p {
   font-family: Lato;
 }
+
+.form {
+  display: flex;
+  justify-content: center;
+  line-height: 1.8;
+  padding-top: 20px;
+}
+
 body {
   background-color: #f5f7fb;
 }
