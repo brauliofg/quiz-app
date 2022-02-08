@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.css';
-import Form from './Form';
-import Quiz from './Quiz';
+import Header from './Header';
+import Form from 'Form/Form';
+import Quiz from 'Quiz/Quiz';
 
 export default function App() {
   const [apiURL, setApiURL] = React.useState();
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <div>
+      <Header formData={formData} setApiURL={setApiURL} />
       <Form
         formData={formData}
         setFormData={(id, value) => handleFormChange(id, value)}

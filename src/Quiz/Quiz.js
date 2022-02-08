@@ -20,29 +20,24 @@ export default function Quiz(props) {
       questionData.push({
         id: i++,
         type: questionInfo.type,
-        question: questionInfo.question
-          .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, "'")
-          .replace(/&eacute;/g, 'é'),
+        question: window.atob(questionInfo.question),
         answers: [],
       });
       questionInfo.incorrect_answers.forEach((ans) =>
         questionData[questionData.length - 1].answers.push({
-          answer: ans.replace(/&quot;/g, '"').replace(/&#039;/g, "'"),
+          answer: window.atob(ans),
           isSelected: false,
           isAnswer: false,
           showResults: false,
         })
       );
       questionData[questionData.length - 1].answers.push({
-        answer: questionInfo.correct_answer
-          .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, "'"),
+        answer: window.atob(questionInfo.correct_answer),
         isSelected: false,
         isAnswer: true,
         showResults: false,
       });
-      tempCorrectArray.push(questionInfo.correct_answer);
+      tempCorrectArray.push(window.atob(questionInfo.correct_answer));
     });
 
     questionData.map((questionInfo) => {
@@ -169,7 +164,7 @@ export default function Quiz(props) {
             <div style={{ marginRight: result === '' ? '0px' : '20px' }}>
               <h3 className="results">{result}</h3>
             </div>
-            <button className="submit--button">{submitText}</button>
+            {data && <button className="submit--button">{submitText}</button>}
           </div>
         </form>
       )}

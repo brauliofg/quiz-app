@@ -1,5 +1,5 @@
 import React from 'react';
-import Data from './api_category.json';
+import Data from '../api_category.json';
 
 export default function Form(props) {
   const [categories, setCategories] = React.useState();
@@ -12,54 +12,47 @@ export default function Form(props) {
     setCategories(Data.trivia_categories);
   }, []);
 
-  React.useEffect(() => {
-    if (categories != undefined) {
-      setCategoryElements(
-        [
-          <option value="0" key="0">
-            Any Category
-          </option>,
-        ].concat(
-          categories.map((category) => {
-            return (
-              <option value={category.id} key={category.id}>
-                {category.name}
-              </option>
-            );
-          })
-        )
-      );
-    }
-  }, [categories]);
+  if(categories!=undefined)
+  var categoryElements2 = [
+    <option value="0" key="0" selected={props.formData.category=="0"}>
+      Any Category
+    </option>,
+  ].concat(categories.map(category => {
+    return (
+      <option value={category.id} key={category.id} selected={category.id==props.formData.category}>
+        {category.name}
+      </option>
+    )
+  }));
 
   const difficultyElements = [
-      <option value="0" key="0">
+      <option value="0" key="0" selected={props.formData.difficulty==="0"}>
         Any Difficulty
       </option>
       ,
-      <option value="easy" key="1">
+      <option value="easy" key="1" selected={props.formData.difficulty==="easy"}>
         Easy
       </option>
       ,
-      <option value="medium" key="2">
+      <option value="medium" key="2" selected={props.formData.difficulty==="medium"}>
         Medium
       </option>
       ,
-      <option value="hard" key="3">
+      <option value="hard" key="3" selected={props.formData.difficulty==="hard"}>
         Hard
       </option>
   ];
 
   const typeElements = [
-      <option value="0" key="0">
+      <option value="0" key="0" selected={props.formData.type==="0"}>
         Any Type
       </option>
       ,
-      <option value="multiple" key="1">
+      <option value="multiple" key="1" selected={props.formData.type==="multiple"}>
         Multiple Choice
       </option>
       ,
-      <option value="boolean" key="2">
+      <option value="boolean" key="2" selected={props.formData.type==="boolean"}>
         True / False
       </option>
   ];
@@ -70,7 +63,7 @@ export default function Form(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    let url = 'https://opentdb.com/api.php?amount=';
+    let url = 'https://opentdb.com/api.php?encode=base64&amount=';
     url += props.formData.amount;
     if (props.formData.category != '0') url += '&category=' + props.formData.category;
     if (props.formData.difficulty != '0') url += '&difficulty=' + props.formData.difficulty;
@@ -88,13 +81,13 @@ export default function Form(props) {
         min="1"
         max="50"
         name="amount"
-        defaultValue="10"
+        defaultValue={props.formData.amount}
         onChange={handleChange}
       ></input>
       <br />
       <label htmlFor="category">Select Category:</label>
       <select id="category" name="category" onChange={handleChange}>
-        {categoryElements}
+        {categoryElements2}
       </select>
       <br />
       <label htmlFor="difficulty">Select Difficulty:</label>
@@ -107,7 +100,7 @@ export default function Form(props) {
       {typeElements}
       </select>
       <br />
-      <button>Submit</button>
+      <button>Start Quiz</button>
     </form>}
     </div>
   );

@@ -3,9 +3,29 @@ p {
   font-family: Lato;
 }
 
-.form {
+header{
   display: flex;
-  justify-content: center;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.header--title{
+  cursor: pointer;
+  margin-right: auto;
+  color: #293264;
+  font-family: 'Inter', Arial;
+}
+
+.header--items{
+  font-size: 16px;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #4d5b9e;
+  font-family: 'Inter', Arial;
+  text-align: right;
+}
+
+.form {
   line-height: 1.8;
   padding-top: 20px;
 }
