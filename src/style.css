@@ -6,12 +6,19 @@ p {
 header{
   display: flex;
   box-shadow: 0 8px 6px -6px black;
+  position: fixed;
+  top: 0;
+  width: 98%;
+  background-color: #4d5b9e;
+  border-radius: 0px 0px 20px 20px;
+  opacity: 1;
 }
 
 .header--title{
   cursor: pointer;
   margin-right: auto;
-  color: #293264;
+  margin-left: 10px;
+  color: #f5f7fb;
   font-family: 'Inter', Arial;
 }
 
@@ -20,7 +27,8 @@ header{
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
-  color: #4d5b9e;
+  margin-right: 10px;
+  color: #f5f7fb;
   font-family: 'Inter', Arial;
   text-align: right;
 }
@@ -28,6 +36,10 @@ header{
 .form {
   line-height: 1.8;
   padding-top: 20px;
+}
+
+.appContent{
+  margin-top: 100px;
 }
 
 body {
@@ -56,6 +68,17 @@ body {
   font-weight: 500;
   font-size: 12px;
   margin-bottom: 12.75px;
+}
+
+.start--button{
+  border-radius: 8px;
+  font-family: 'Inter', Arial;
+  padding: 10px 20px;
+  color: #f5f7fb;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 12px;
+  background-color: #4d5b9e;
 }
 
 .answerBlock {

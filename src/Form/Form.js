@@ -100,7 +100,7 @@ export default function Form(props) {
       {typeElements}
       </select>
       <br />
-      <button>Start Quiz</button>
+      <button className="start--button">Start Quiz</button>
     </form>}
     </div>
   );

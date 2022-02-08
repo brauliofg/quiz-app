@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
 import Header from './Header';
-import Form from 'Form/Form';
-import Quiz from 'Quiz/Quiz';
+import Form from './Form/Form';
+import Quiz from './Quiz/Quiz';
 
 export default function App() {
   const [apiURL, setApiURL] = React.useState();
@@ -21,7 +21,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <div className="appContent">
       <Header formData={formData} setApiURL={setApiURL} />
       <Form
         formData={formData}
